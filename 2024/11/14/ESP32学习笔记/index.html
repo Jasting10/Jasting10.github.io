@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ESP32学习笔记 | Fred's Blog</title><meta name="author" content="Fred"><meta name="copyright" content="Fred"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ESP32开发相关链接开发ESP32可以采用IDF和Arduino IDE进行开发。为了进一步学习LVGL图形库和FreeRTOS，我选择使用乐鑫IDF进行开发。IDT开发官方文档可见快速入门 一些idf常用命令idf工具主要调用idf.py这个python脚本，通过传递不同的参数实现不同功能，如交叉编译等。为了终端可以调用该指令需要将其添加路径到系统环境变量中,Linux系统下在目录下运行she">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ESP32学习笔记 | Fred's Blog</title><meta name="author" content="Fred"><meta name="copyright" content="Fred"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="ESP32开发相关链接开发ESP32可以采用IDF和Arduino IDE进行开发。为了进一步学习LVGL图形库和FreeRTOS，我选择使用乐鑫IDF进行开发。IDT开发官方文档可见快速入门 一些idf常用命令idf工具主要调用idf.py这个python脚本，通过传递不同的参数实现不同功能，如交叉编译等。为了终端可以调用该指令需要将其添加路径到系统环境变量中,Linux系统下在目录下运行she">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ESP32学习笔记">
 <meta property="og:url" content="https://jasting10.github.io/2024/11/14/ESP32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
@@ -129,7 +129,7 @@
       win.activateLightMode = () => {
         document.documentElement.setAttribute('data-theme', 'light')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
         }
       }
       const t = saveToLocal.get('theme')
