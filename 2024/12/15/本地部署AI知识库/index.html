@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>本地部署AI知识库 | Fred's Blog</title><meta name="author" content="Fred"><meta name="copyright" content="Fred"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="突发奇想，打算在本机部署chat大语言模型，同时部署embedding模型将文档等数据转化成向量，实现知识库。 Olama本地部署模型Ollama 是一个用于本地部署和运行大型语言模型（LLM）的平台，旨在让开发者和研究人员能够在本地计算机上高效、低延迟地运行和使用人工智能模型。它支持多种预训练的语言模型，并提供了一个简单易用的界面和 API，帮助用户在无需云端依赖的情况下进行自然语言处理、对话生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本地部署AI知识库">
+<meta property="og:url" content="https://jasting10.github.io/2024/12/15/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2AI%E7%9F%A5%E8%AF%86%E5%BA%93/index.html">
+<meta property="og:site_name" content="Fred&#39;s Blog">
+<meta property="og:description" content="突发奇想，打算在本机部署chat大语言模型，同时部署embedding模型将文档等数据转化成向量，实现知识库。 Olama本地部署模型Ollama 是一个用于本地部署和运行大型语言模型（LLM）的平台，旨在让开发者和研究人员能够在本地计算机上高效、低延迟地运行和使用人工智能模型。它支持多种预训练的语言模型，并提供了一个简单易用的界面和 API，帮助用户在无需云端依赖的情况下进行自然语言处理、对话生">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/11/14/c36iWANzL9mxSGV.png">
+<meta property="article:published_time" content="2024-12-15T04:25:03.000Z">
+<meta property="article:modified_time" content="2024-12-15T10:33:22.536Z">
+<meta property="article:author" content="Fred">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/11/14/c36iWANzL9mxSGV.png"><link rel="shortcut icon" href="https://s2.loli.net/2024/11/21/iUxLrp9JsawYOEV.png"><link rel="canonical" href="https://jasting10.github.io/2024/12/15/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2AI%E7%9F%A5%E8%AF%86%E5%BA%93/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '本地部署AI知识库',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-15 18:33:22'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/11/14/c36iWANzL9mxSGV.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 相关链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent"><nav id="nav"><span id="blog-info"><a href="/" title="Fred's Blog"><span class="site-name">Fred's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 相关链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">本地部署AI知识库</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-15T04:25:03.000Z" title="发表于 2024-12-15 12:25:03">2024-12-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-15T10:33:22.536Z" title="更新于 2024-12-15 18:33:22">2024-12-15</time></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>突发奇想，打算在本机部署chat大语言模型，同时部署embedding模型将文档等数据转化成向量，实现知识库。</p>
+<h1 id="Olama本地部署模型"><a href="#Olama本地部署模型" class="headerlink" title="Olama本地部署模型"></a>Olama本地部署模型</h1><p><a href="(https://ollama.com/)">Ollama</a> 是一个用于本地部署和运行大型语言模型（LLM）的平台，旨在让开发者和研究人员能够在本地计算机上高效、低延迟地运行和使用人工智能模型。它支持多种预训练的语言模型，并提供了一个简单易用的界面和 API，帮助用户在无需云端依赖的情况下进行自然语言处理、对话生成、文本分析等任务。</p>
+<h2 id="Olama相关指令"><a href="#Olama相关指令" class="headerlink" title="Olama相关指令"></a>Olama相关指令</h2><p>Ollama 提供了一些常用的命令行操作指令来帮助用户管理模型、启动服务、加载模型等。以下是一些常见的 Ollama 操作指令：</p>
+<h3 id="1-ollama-pull"><a href="#1-ollama-pull" class="headerlink" title="1. ollama pull &lt;model-name&gt;"></a>1. <strong><code>ollama pull &lt;model-name&gt;</code></strong></h3><ul>
+<li><strong>作用</strong>：下载并安装指定的模型。</li>
+<li><strong>示例</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama pull llama-7b</span><br></pre></td></tr></table></figure>
+该命令会下载名为 <code>llama-7b</code> 的模型到本地。</li>
+</ul>
+<h3 id="2-ollama-list"><a href="#2-ollama-list" class="headerlink" title="2. ollama list"></a>2. <strong><code>ollama list</code></strong></h3><ul>
+<li><strong>作用</strong>：列出当前本地已安装的所有模型。</li>
+<li><strong>示例</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama list</span><br></pre></td></tr></table></figure>
+该命令会列出你已经下载并安装在本地的模型列表。</li>
+</ul>
+<h3 id="3-ollama-run"><a href="#3-ollama-run" class="headerlink" title="3. ollama run &lt;model-name&gt;"></a>3. <strong><code>ollama run &lt;model-name&gt;</code></strong></h3><ul>
+<li><strong>作用</strong>：直接运行并与指定模型进行交互。</li>
+<li><strong>示例</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama run llama-7b</span><br></pre></td></tr></table></figure>
+该命令会启动一个交互式会话，并与指定的模型进行对话。</li>
+</ul>
+<h3 id="4-ollama-rm"><a href="#4-ollama-rm" class="headerlink" title="4. ollama rm &lt;model-name&gt;"></a>4. <strong><code>ollama rm &lt;model-name&gt;</code></strong></h3><ul>
+<li><strong>作用</strong>：删除指定的本地模型。</li>
+<li><strong>示例</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama <span class="built_in">rm</span> llama-7b</span><br></pre></td></tr></table></figure>
+该命令会删除名为 <code>llama-7b</code> 的模型，释放本地存储空间。</li>
+</ul>
+<h3 id="5-ollama-serve"><a href="#5-ollama-serve" class="headerlink" title="5. ollama serve"></a>5. <strong><code>ollama serve</code></strong></h3><ul>
+<li><strong>作用</strong>：启动 Ollama 的本地服务，通常用于为外部应用提供 API 接口。</li>
+<li><strong>示例</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama serve</span><br></pre></td></tr></table></figure>
+启动服务后，Ollama 会在本地启动一个服务器，默认端口可能为 <code>5000</code> 或 <code>11434</code>，你可以通过访问 <code>http://localhost:&lt;port&gt;</code> 与模型进行交互。</li>
+</ul>
+<h3 id="6-ollama-show"><a href="#6-ollama-show" class="headerlink" title="6. ollama show &lt;model-name&gt;"></a>6. <strong><code>ollama show &lt;model-name&gt;</code></strong></h3><ul>
+<li><strong>作用</strong>：查看已安装模型的详细信息，包括模型的版本、参数等。</li>
+<li><strong>示例</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama show llama-7b</span><br></pre></td></tr></table></figure>
+该命令会显示 <code>llama-7b</code> 模型的详细信息。</li>
+</ul>
+<h3 id="其他命令选项"><a href="#其他命令选项" class="headerlink" title="其他命令选项"></a>其他命令选项</h3><ul>
+<li>**<code>ollama help</code>**：查看所有可用的 Ollama 命令。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama <span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+该命令会列出所有可用的命令和参数，并显示简要的使用说明。</li>
+</ul>
+<h2 id="Olama模型推荐"><a href="#Olama模型推荐" class="headerlink" title="Olama模型推荐"></a>Olama模型推荐</h2><p>个人电脑如果配备较好的个人显卡可以尝试<code>7b~32b</code>的模型，<code>70b</code>的模型虽然较为智能<strong>But</strong>速度会非常慢，且需要至少32GB 的显存，不是非常推荐。笔记本用户如果想尝试可以使用<code>llama3.2</code>，其主攻轻量化的场景有<code>1b</code>和<code>3b</code>两个版本可供选择。如果有40系显卡的加持可以尝试<code>7b</code>以上<code>70b</code>以下的模型。</p>
+<p><strong>本人安装模型如下</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NAME                              ID              SIZE      MODIFIED</span><br><span class="line">qwen2.5:14b                       7cdf5a0187d5    9.0 GB    6 minutes ago</span><br><span class="line">qwen2.5:32b                       9f13ba1299af    19 GB     21 minutes ago</span><br><span class="line">nomic-embed-text:latest           0a109f422b47    274 MB    55 minutes ago</span><br><span class="line">llama3.1:8b                       46e0c10c039e    4.9 GB    55 minutes ago</span><br><span class="line">shaw/dmeta-embedding-zh:latest    55960d8a3a42    408 MB    18 hours ago</span><br></pre></td></tr></table></figure>
+<p>其中<code>nomic-embed-text:latest</code>和<code>shaw/dmeta-embedding-zh:latest</code>为Embedding嵌入模型，其余为Chat模型。<br><strong>Embedding（嵌入）模型</strong>是自然语言处理（NLP）和机器学习中的一个重要概念，它将高维的离散数据（如单词、句子、图片等）转换为低维的、连续的向量表示。通过这种方式，嵌入模型能够将复杂的输入数据转化为机器学习算法可以处理的数值格式，同时保持数据的语义关系和结构。</p>
+<h3 id="Embedding模型的作用"><a href="#Embedding模型的作用" class="headerlink" title="Embedding模型的作用"></a>Embedding模型的作用</h3><ul>
+<li><p><strong>将离散数据转换为连续向量</strong>：许多机器学习模型（如神经网络）不能直接处理离散的非数值数据（如文本、类别标签等）。Embedding 模型通过将这些离散的对象（例如单词、句子或图像）映射到一个连续的向量空间，使它们变得适合于计算机处理。</p>
+</li>
+<li><p><strong>保留语义和上下文信息</strong>：嵌入模型的一个重要特点是能够将语义相似的对象映射到相似的向量位置。举例来说，<strong>Word2Vec</strong> 和 <strong>GloVe</strong> 这样的词嵌入模型会使得“猫”和“狗”在向量空间中的位置靠得很近，因为它们在许多上下文中具有相似的意义。这种特性对于许多下游任务（如语义分析、情感分析等）非常有用。</p>
+</li>
+<li><p><strong>降低维度</strong>：通过将数据从高维空间映射到低维空间，Embedding 模型不仅能减少计算量，还能减少噪声和冗余信息。这对于提高模型的性能和训练效率至关重要，尤其是在处理大规模数据时。</p>
+</li>
+<li><p><strong>提升模型泛化能力</strong>：通过使用嵌入向量，模型可以捕获到更丰富的特征表示，从而提高其泛化能力。例如，通过词嵌入，模型能够理解“跑步”和“运动”之间的关系，而不仅仅是将它们视为完全不同的单词。</p>
+</li>
+</ul>
+<h3 id="Embedding模型的常见类型"><a href="#Embedding模型的常见类型" class="headerlink" title="Embedding模型的常见类型"></a>Embedding模型的常见类型</h3><ul>
+<li><p><strong>Word Embeddings（词嵌入）</strong>：</p>
+<ul>
+<li><strong>Word2Vec</strong>：基于上下文的词嵌入模型，分为两种架构——CBOW（Continuous Bag of Words）和 Skip-gram。</li>
+<li><strong>GloVe</strong>：通过矩阵分解技术生成的词嵌入模型，注重捕捉全局统计信息。</li>
+<li><strong>FastText</strong>：在 Word2Vec 的基础上进一步考虑了词内的子词信息，能够更好地处理未知词汇。</li>
+</ul>
+</li>
+<li><p><strong>Sentence Embeddings（句子嵌入）</strong>：</p>
+<ul>
+<li><strong>Doc2Vec</strong>：是 Word2Vec 的扩展，能够为整个文档（句子、段落等）生成一个固定的向量表示。</li>
+<li>**Universal Sentence Encoder (USE)**：一种用于生成句子嵌入的模型，能够生成固定长度的句子向量表示，适用于各种句子级别的任务。</li>
+</ul>
+</li>
+<li><p><strong>Contextual Embeddings（上下文嵌入）</strong>：</p>
+<ul>
+<li><strong>BERT</strong>：通过 Transformer 架构生成上下文相关的嵌入表示，可以为每个单词生成不同的嵌入向量，依赖于单词的上下文。</li>
+<li><strong>GPT</strong>：基于自回归模型生成的嵌入，能够生成连贯的文本和语境感知的嵌入表示。</li>
+</ul>
+</li>
+<li><p><strong>Multimodal Embeddings（多模态嵌入）</strong>：</p>
+<ul>
+<li><strong>CLIP</strong>：结合图像和文本信息的多模态嵌入模型，通过学习图像和文本之间的关联，能够进行跨模态检索和图像-文本匹配。</li>
+</ul>
+</li>
+</ul>
+<p><strong>总而言之，言而总之。Embedding模型可以将用户提供的数据识别制作成库，为Chat模型提供知识基础，安装Embedding模型是构建个人知识库的必要一步。</strong></p>
+<h1 id="基于RAGflow搭建本地知识库"><a href="#基于RAGflow搭建本地知识库" class="headerlink" title="基于RAGflow搭建本地知识库"></a>基于RAGflow搭建本地知识库</h1><p>RAGflow 是一个基于 LLM 的开源知识库构建工具，它提供了一系列的组件，包括数据源、数据处理、模型、评估等，使得用户可以轻松地搭建知识库。开源地址：<a target="_blank" rel="noopener" href="https://github.com/infiniflow/ragflow">https://github.com/infiniflow/ragflow</a></p>
+<h2 id="RAGflow搭建步骤"><a href="#RAGflow搭建步骤" class="headerlink" title="RAGflow搭建步骤"></a>RAGflow搭建步骤</h2><p>由于开源仓库中有详细的使用教程，这里简单描述，突出易错关键步骤。</p>
+<h3 id="1-安装Docker"><a href="#1-安装Docker" class="headerlink" title="1.安装Docker"></a>1.安装Docker</h3><p>可以阅读文章<a target="_blank" rel="noopener" href="https://blog.csdn.net/Liuj666/article/details/126099982?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522070e248a9f83b077fe95f17e62b30502%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=070e248a9f83b077fe95f17e62b30502&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-126099982-null-null.142%5Ev100%5Epc_search_result_base9&utm_term=Windows%E5%AE%89%E8%A3%85docker&spm=1018.2226.3001.4187">Windows 安装docker（详细图解）</a></p>
+<h3 id="2-git拉取仓库"><a href="#2-git拉取仓库" class="headerlink" title="2.git拉取仓库"></a>2.git拉取仓库</h3><p>通过<code>git clone</code>命令拉取仓库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/infiniflow/ragflow.git</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-拉取Docker文件"><a href="#3-拉取Docker文件" class="headerlink" title="3.拉取Docker文件"></a>3.拉取Docker文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ragflow</span><br><span class="line">$ docker compose -f docker/docker-compose.yml up -d</span><br></pre></td></tr></table></figure>
+<p>注意执行该命令时要启动Docker,有条件使用科学上网,最好以管理员权限运行<code>CMD</code>。<br>Docker服务运行成功如图：<br><img src="https://s2.loli.net/2024/12/15/eFGHQdBp7siyRZv.png" width="80%"></p>
+<h3 id="4-添加本地大模型"><a href="#4-添加本地大模型" class="headerlink" title="4.添加本地大模型"></a>4.添加本地大模型</h3><p>我的Ollama和RAGflow都是部署在同一台机器上的，但是RAGflow在Docker中，所以基础URL填写如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://host.docker.internal:11434</span><br></pre></td></tr></table></figure>
+<p>RAGflow中Ollama添加模型如图：<br><img src="https://s2.loli.net/2024/12/15/xnN5JeiCoyhT4Gl.png" width="80%"></p>
+<p>至此搭建工作完成，可以访问<code>http://localhost/knowledge</code>，使用RAGflow提供的服务进行知识库问答。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2024/11/14/c36iWANzL9mxSGV.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/11/24/ESP32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="ESP32学习笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ESP32学习笔记</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/11/14/c36iWANzL9mxSGV.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fred</div><div class="author-info__description">个人知识存储，作品发布</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Jasting10"><i class="fab fa-github"></i><span>Github主页</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Olama%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">Olama本地部署模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Olama%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="toc-number">1.1.</span> <span class="toc-text">Olama相关指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-ollama-pull"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. ollama pull &lt;model-name&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-ollama-list"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. ollama list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ollama-run"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. ollama run &lt;model-name&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ollama-rm"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. ollama rm &lt;model-name&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-ollama-serve"><span class="toc-number">1.1.5.</span> <span class="toc-text">5. ollama serve</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-ollama-show"><span class="toc-number">1.1.6.</span> <span class="toc-text">6. ollama show &lt;model-name&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4%E9%80%89%E9%A1%B9"><span class="toc-number">1.1.7.</span> <span class="toc-text">其他命令选项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Olama%E6%A8%A1%E5%9E%8B%E6%8E%A8%E8%8D%90"><span class="toc-number">1.2.</span> <span class="toc-text">Olama模型推荐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Embedding%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">Embedding模型的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Embedding%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%B8%B8%E8%A7%81%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.2.</span> <span class="toc-text">Embedding模型的常见类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8ERAGflow%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E7%9F%A5%E8%AF%86%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">基于RAGflow搭建本地知识库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RAGflow%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.1.</span> <span class="toc-text">RAGflow搭建步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85Docker"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.安装Docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-git%E6%8B%89%E5%8F%96%E4%BB%93%E5%BA%93"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.git拉取仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8B%89%E5%8F%96Docker%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.3.</span> <span class="toc-text">3.拉取Docker文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%B7%BB%E5%8A%A0%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.1.4.</span> <span class="toc-text">4.添加本地大模型</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/15/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2AI%E7%9F%A5%E8%AF%86%E5%BA%93/" title="本地部署AI知识库">本地部署AI知识库</a><time datetime="2024-12-15T04:25:03.000Z" title="发表于 2024-12-15 12:25:03">2024-12-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/24/ESP32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="ESP32学习笔记">ESP32学习笔记</a><time datetime="2024-11-24T05:07:10.000Z" title="发表于 2024-11-24 13:07:10">2024-11-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/18/%E6%96%B0%E6%96%87%E7%AB%A0%E7%BC%96%E5%86%99%E6%8C%87%E5%8D%97/" title="新文章编写指南">新文章编写指南</a><time datetime="2024-11-18T12:30:00.000Z" title="发表于 2024-11-18 20:30:00">2024-11-18</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2024 By Fred</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
